@@ -26,8 +26,14 @@ def prompt(level):
 	selectedAns = -1
 	print(ansKey[n])
 	optionSound = pygame.mixer.Sound("img/optionsound.mp3")
+	correctSound = pygame.mixer.Sound("img/rightans.mp3")
+	wrongSound = pygame.mixer.Sound("img/wrongans.wav")
+	pygame.mixer.music.load("img/questionbg.wav")
+	pygame.mixer.music.play(-1)
+
 
 	#creating the buttons
+
 	button1 = pygame.Rect(100, 255, 290, 300)
 	button2 = pygame.Rect(610, 255, 290, 300)
 	button3 = pygame.Rect(100, 625, 290, 300)
@@ -36,6 +42,8 @@ def prompt(level):
 	bgimg = pygame.image.load("img/english/questionbg.png")
 	appleimg = pygame.image.load("img/english/appleques.png")
 	profimg = pygame.image.load("img/profslide.png")
+
+
 
 
 	# main game loop
@@ -76,9 +84,11 @@ def prompt(level):
 					print("button1")
 					selectedAns = 1
 					if selectedAns == ansKey[n]:
+						correctSound.play()
 						print("successful")
 						return 1
 					else:
+						wrongSound.play()
 						return -1
 
 			if button2.collidepoint((mx, my)):
@@ -87,9 +97,11 @@ def prompt(level):
 					print("button2")
 					selectedAns = 2
 					if selectedAns == ansKey[n]:
+						correctSound.play()
 						print("successful")
 						return 1
 					else:
+						wrongSound.play()
 						return -1
 			if button3.collidepoint((mx, my)):
 				if click:
@@ -97,9 +109,11 @@ def prompt(level):
 					print("button3")
 					selectedAns = 3
 					if selectedAns == ansKey[n]:
+						correctSound.play()
 						print("successful")
 						return 1
 					else:
+						wrongSound.play()
 						return -1
 			if button4.collidepoint((mx, my)):
 				if click:
@@ -107,9 +121,11 @@ def prompt(level):
 					print("button4")
 					selectedAns = 4
 					if selectedAns == ansKey[n]:
+						correctSound.play()
 						print("successful")
 						return 1
 					else:
+						wrongSound.play()
 						return -1
 		# update the screen
 		pygame.display.update()

@@ -462,6 +462,8 @@ while run:
 		if game_over == 1:
 			#reset game and go to next level
 			game_over = prompt(level)
+			pygame.mixer.music.load("img/music.wav")
+			pygame.mixer.music.play(-1)
 			if game_over == 1:
 				level += 1
 				if level <= max_levels:
