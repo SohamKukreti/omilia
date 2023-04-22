@@ -27,6 +27,7 @@ def prompt1():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
+				sys.exit()
 			elif event.type == pygame.MOUSEBUTTONDOWN:
 				# check if the user clicked on an option
 				mouse_pos = pygame.mouse.get_pos()
