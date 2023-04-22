@@ -461,22 +461,23 @@ while run:
 		#if player has completed the level
 		if game_over == 1:
 			#reset game and go to next level
-			prompt()
-			level += 1
-			if level <= max_levels:
-				#reset level
-				world_data = []
-				world = reset_level(level)
-				game_over = 0
-			else:
-				draw_text('YOU WIN!', font, blue, (screen_width // 2) - 140, screen_height // 2)
-				if restart_button.draw():
-					level = 1
+			game_over = prompt(level)
+			if game_over == 1:
+				level += 1
+				if level <= max_levels:
 					#reset level
 					world_data = []
 					world = reset_level(level)
 					game_over = 0
-					score = 0
+				else:
+					draw_text('YOU WIN!', font, blue, (screen_width // 2) - 140, screen_height // 2)
+					if restart_button.draw():
+						level = 1
+						#reset level
+						world_data = []
+						world = reset_level(level)
+						game_over = 0
+						score = 0
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
