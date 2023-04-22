@@ -1,6 +1,6 @@
 import pygame
 import sys
-def prompt1():
+def prompt():
 
 	# initialize Pygame
 	pygame.init()
@@ -32,14 +32,15 @@ def prompt1():
 				# check if the user clicked on an option
 				mouse_pos = pygame.mouse.get_pos()
 				option_y = 100
-
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_ESCAPE:
+					running = False
 		# clear the screen
 		window.fill((255, 255, 255))
 		window.blit(bgimg,(0,0))
-		window.blit(appleimg,(100,0))
+		window.blit(appleimg,(150,35))
 		#window.blit(question_img,(150,0))
 		# update the screen
 		pygame.display.update()
 
 
-prompt1()

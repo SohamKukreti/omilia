@@ -12,7 +12,7 @@ pygame.display.set_caption('Platformer')
 
 bg_img = pygame.image.load('oi.png')
 start_button = pygame.image.load('start1.png')
-start_button = pygame.Rect(50, 250, 200, 75)
+#start_button = pygame.Rect(50, 250, 200, 75)
 
 
 run = True

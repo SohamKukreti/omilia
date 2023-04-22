@@ -3,6 +3,8 @@ from pygame.locals import *
 from pygame import mixer
 import pickle
 from os import path
+from EnglishQuestion import prompt
+
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 mixer.init()
@@ -459,6 +461,7 @@ while run:
 		#if player has completed the level
 		if game_over == 1:
 			#reset game and go to next level
+			prompt()
 			level += 1
 			if level <= max_levels:
 				#reset level
