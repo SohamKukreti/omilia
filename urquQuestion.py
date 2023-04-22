@@ -14,11 +14,11 @@ def prompt1():
 	# set the font
 	font = pygame.font.SysFont(None, 30)
 
-	question_img = pygame.image.load("img/urdu/q1.png")
+	#question_img = pygame.image.load("img/english/q1.png")
 
 
-	bgimg = pygame.image.load("img/bgimg.png")
-
+	bgimg = pygame.image.load("img/english/questionbg.png")
+	appleimg = pygame.image.load("img/english/appleques.png")
 
 	# main game loop
 	running = True
@@ -35,7 +35,8 @@ def prompt1():
 		# clear the screen
 		window.fill((255, 255, 255))
 		window.blit(bgimg,(0,0))
-		window.blit(question_img,(150,0))
+		window.blit(appleimg,(100,0))
+		#window.blit(question_img,(150,0))
 		# update the screen
 		pygame.display.update()
 
