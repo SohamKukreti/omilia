@@ -47,16 +47,16 @@ start_img = pygame.image.load('img/start_btn.png')
 exit_img = pygame.image.load('img/exit_btn.png')
 
 #load sounds
-pygame.mixer.music.load('img/music.wav')
-pygame.mixer.music.play(-1, 0.0, 5000)
+pygame.mixer.music.load("img/music.wav")
+pygame.mixer.music.play(-1)
 coin_fx = pygame.mixer.Sound('img/coin.wav')
 coin_fx.set_volume(0.5)
 jump_fx = pygame.mixer.Sound('img/jump.wav')
 jump_fx.set_volume(0.5)
 game_over_fx = pygame.mixer.Sound('img/game_over.wav')
 game_over_fx.set_volume(0.5)
-
-
+martyspeech = pygame.mixer.Sound("img/martySpeech.wav")
+martyspeech.play()
 def draw_text(text, font, text_col, x, y):
 	img = font.render(text, True, text_col)
 	screen.blit(img, (x, y))
