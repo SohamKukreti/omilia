@@ -19,9 +19,9 @@ def prompt(level):
 
 	textfont=pygame.font.Font("img/CompassPro.ttf",32)
 	text = '''Marty, Try to guess what the word!'''
-	images = ["img/english/cat.jpg","img/english/dog.jpg","img/english/pencil.jpg"]
-	ansKey = [1,4,4]
-	n = random.randint(0,2)
+	images = ["img/english/q1.png","img/english/q2.png","img/english/q3.png","img/english/q4.png","img/english/q5.png","img/english/q6.png","img/english/q7.png","img/english/q8.png","img/english/q9.png","img/english/q10.png",]
+	ansKey = [1,4,4,2,3,2,1,4,1,3]
+	n = random.randint(0,9)
 	ques_img = pygame.image.load(images[n])
 	selectedAns = -1
 	print(ansKey[n])
