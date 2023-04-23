@@ -1,6 +1,6 @@
 import pygame
 import sys
-from English import EnglishPlatformer
+
 def language_call():
     # Load the start page image
                 pygame.init()
@@ -61,7 +61,6 @@ def language_call():
                                 englishImgNew = pygame.transform.scale(englishImg, (215, 90))
                                 englishImg = englishImgNew
                                 if click == True:
-                                    EnglishPlatformer.engplatform()
                                     print("running english")
                     hindiImg = hindiImgold
                     englishImg = englishImgold
