@@ -12,7 +12,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 fps = 60
-
+time_count = 0
 screen_width = 1000
 screen_height = 1000
 
@@ -28,7 +28,7 @@ font_score = pygame.font.SysFont('Bauhaus 93', 30)
 #define game variables
 tile_size = 50
 game_over = 0
-main_menu = True
+main_menu = False
 level = 0
 max_levels = 7
 score = 0
@@ -45,6 +45,7 @@ bg_img = pygame.image.load('img/bgimg.png')
 restart_img = pygame.image.load('img/restart_btn.png')
 start_img = pygame.image.load('img/start_btn.png')
 exit_img = pygame.image.load('img/exit_btn.png')
+martyimg = pygame.image.load("img/martyspeechimg.png")
 
 #load sounds
 pygame.mixer.music.load("img/music.wav")
@@ -374,7 +375,7 @@ class Lava(pygame.sprite.Sprite):
 class Coin(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
-		img = pygame.image.load('img/coin.png')
+		img = pygame.image.load('img/car.png')
 		self.image = pygame.transform.scale(img, (tile_size // 2, tile_size // 2))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
@@ -418,9 +419,9 @@ exit_button = Button(screen_width // 2 + 150, screen_height // 2, exit_img)
 
 run = True
 while run:
-
 	clock.tick(fps)
 
+	time_count +=1
 	screen.blit(bg_img, (0, 0))
 	screen.blit(sun_img, (100, 100))
 
@@ -480,6 +481,8 @@ while run:
 						world = reset_level(level)
 						game_over = 0
 						score = 0
+	if time_count <= 400 :
+		screen.blit(martyimg,(0,0))
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
