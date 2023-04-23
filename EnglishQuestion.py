@@ -21,7 +21,7 @@ def prompt(level):
 	text = '''Marty, Try to guess what the word!'''
 	images = ["English/img/english/q1.png","English/img/english/q2.png","English/img/english/q3.png","English/img/english/q4.png","English/img/english/q5.png","English/img/english/q6.png","English/img/english/q7.png","English/img/english/q8.png","English/img/english/q9.png","English/img/english/q10.png","English/img/english/q11.png","English/img/english/q12.png","English/img/english/q13.png","English/img/english/q14.png","English/img/english/q15.png","English/img/english/q16.png","English/img/english/q17.png","English/img/english/q18.png","English/img/english/q19.png","English/img/english/q20.png"]
 	ansKey = [1,4,4,2,3,2,1,4,1,3,1,2,1,3,2,3,3,1,3,1]
-	n = random.randint(0,9)
+	n = random.randint(0,19)
 	ques_img = pygame.image.load(images[n])
 	selectedAns = -1
 	print(ansKey[n])
