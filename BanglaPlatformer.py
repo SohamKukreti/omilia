@@ -495,4 +495,3 @@ def banglaplatform():
 
 	pygame.quit()
 
-banglaplatform()
