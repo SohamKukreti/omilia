@@ -3,6 +3,10 @@ import sys
 from EnglishPlatformer import engplatform
 from HindiPlatformer import hindplatform
 from BanglaPlatformer import banglaplatform
+from guide_English import guide_english_call
+from guide_Hindi import guide_hindi_call
+from guide_Bangla import guide_bangla_call
+
 pygame.init()
 def language_call():
     # Load the start page image
@@ -11,7 +15,7 @@ def language_call():
                 screen_height = 1000
 
                 screen = pygame.display.set_mode((screen_width, screen_height))
-                pygame.display.set_caption('Language Selector')
+                pygame.display.set_caption('Omilia')
 
 
 
@@ -20,7 +24,7 @@ def language_call():
                 banglaImg = pygame.image.load("menuAssets/Bengali_Button.png")
                 englishImgold = englishImg
                 hindiImgold = hindiImg
-                bangaImgold = banglaImg
+                banglaImgold = banglaImg
                 englishButton = pygame.Rect(370, 220, 240, 70)
                 hindiButton = pygame.Rect(390,350,200,75)
                 banglaButton = pygame.Rect(370, 460, 230, 75)
@@ -63,21 +67,25 @@ def language_call():
                                 hindiImgNew = pygame.transform.scale(hindiImg, (300,180))
                                 hindiImg = hindiImgNew
                                 if click == True:
+                                    guide_hindi_call()
                                     hindplatform()
                                     print("running hindi")
                     if englishButton.collidepoint((mx,my)):
                                 englishImgNew = pygame.transform.scale(englishImg, (215, 90))
                                 englishImg = englishImgNew
                                 if click == True:
+                                    guide_english_call()
                                     engplatform()
                                     print("running english")
                     if banglaButton.collidepoint((mx,my)):
                                 banglaImgNew = pygame.transform.scale(banglaImg, (215, 90))
                                 banglaImg = banglaImgNew
                                 if click == True:
+                                    guide_bangla_call()
                                     banglaplatform()
                                     print("running Bengali")
                     hindiImg = hindiImgold
                     englishImg = englishImgold
+                    banglaImg = banglaImgold
                     pygame.display.update()
                     
