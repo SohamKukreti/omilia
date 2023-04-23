@@ -1,9 +1,9 @@
-def engplatform():
+def hindplatform():
 	import pygame
 	from pygame import mixer
 	import pickle
 	from os import path
-	from EnglishQuestion import prompt
+	from HindiQuestion import prompt
 
 
 	pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -40,23 +40,23 @@ def engplatform():
 
 
 	#load images
-	sun_img = pygame.image.load('img/sun.png')
-	bg_img = pygame.image.load('img/bgimg.png')
-	restart_img = pygame.image.load('img/restart_btn.png')
-	start_img = pygame.image.load('img/start_btn.png')
-	exit_img = pygame.image.load('img/exit_btn.png')
-	martyimg = pygame.image.load("img/martyspeechimg.png")
+	sun_img = pygame.image.load('hindi/img/sun.png')
+	bg_img = pygame.image.load('hindi/img/bgimg.png')
+	restart_img = pygame.image.load('hindi/img/restart_btn.png')
+	start_img = pygame.image.load('hindi/img/start_btn.png')
+	exit_img = pygame.image.load('hindi/img/exit_btn.png')
+	martyimg = pygame.image.load("hindi/img/martyspeechimg.png")
 
 	#load sounds
-	pygame.mixer.music.load("img/music.wav")
+	pygame.mixer.music.load("hindi/img/music.wav")
 	pygame.mixer.music.play(-1)
-	coin_fx = pygame.mixer.Sound('img/coin.wav')
+	coin_fx = pygame.mixer.Sound('hindi/img/coin.wav')
 	coin_fx.set_volume(0.5)
-	jump_fx = pygame.mixer.Sound('img/jump.wav')
+	jump_fx = pygame.mixer.Sound('hindi/img/jump.wav')
 	jump_fx.set_volume(0.5)
-	game_over_fx = pygame.mixer.Sound('img/game_over.wav')
+	game_over_fx = pygame.mixer.Sound('hindi/img/game_over.wav')
 	game_over_fx.set_volume(0.5)
-	martyspeech = pygame.mixer.Sound("img/martySpeech.wav")
+	martyspeech = pygame.mixer.Sound("hindi/img/martySpeech.wav")
 	martyspeech.play()
 	def draw_text(text, font, text_col, x, y):
 		img = font.render(text, True, text_col)
@@ -73,8 +73,8 @@ def engplatform():
 		exit_group.empty()
 
 		#load in level data and create world
-		if path.exists(f'level{level}_data'):
-			pickle_in = open(f'level{level}_data', 'rb')
+		if path.exists(f'hindi/level{level}_data'):
+			pickle_in = open(f'hindi/level{level}_data', 'rb')
 			world_data = pickle.load(pickle_in)
 		world = World(world_data)
 		#create dummy coin for showing the score
@@ -245,12 +245,12 @@ def engplatform():
 			self.index = 0
 			self.counter = 0
 			for num in range(1, 5):
-				img_right = pygame.image.load(f'img/guy{num}.png')
+				img_right = pygame.image.load(f'hindi/img/guy{num}.png')
 				img_right = pygame.transform.scale(img_right, (40, 80))
 				img_left = pygame.transform.flip(img_right, True, False)
 				self.images_right.append(img_right)
 				self.images_left.append(img_left)
-			self.dead_image = pygame.image.load('img/ghost.png')
+			self.dead_image = pygame.image.load('hindi/img/ghost.png')
 			self.image = self.images_right[self.index]
 			self.rect = self.image.get_rect()
 			self.rect.x = x
@@ -269,8 +269,8 @@ def engplatform():
 			self.tile_list = []
 
 			#load images
-			dirt_img = pygame.image.load('img/dirt.png')
-			grass_img = pygame.image.load('img/grass.png')
+			dirt_img = pygame.image.load('hindi/img/dirt.png')
+			grass_img = pygame.image.load('hindi/img/grass.png')
 
 			row_count = 0
 			for row in data:
@@ -321,7 +321,7 @@ def engplatform():
 	class Enemy(pygame.sprite.Sprite):
 		def __init__(self, x, y):
 			pygame.sprite.Sprite.__init__(self)
-			self.image = pygame.image.load('img/blob.png')
+			self.image = pygame.image.load('hindi/img/blob.png')
 			self.rect = self.image.get_rect()
 			self.rect.x = x
 			self.rect.y = y
@@ -339,7 +339,7 @@ def engplatform():
 	class Platform(pygame.sprite.Sprite):
 		def __init__(self, x, y, move_x, move_y):
 			pygame.sprite.Sprite.__init__(self)
-			img = pygame.image.load('img/platform.png')
+			img = pygame.image.load('hindi/img/platform.png')
 			self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
 			self.rect = self.image.get_rect()
 			self.rect.x = x
@@ -365,7 +365,7 @@ def engplatform():
 	class Lava(pygame.sprite.Sprite):
 		def __init__(self, x, y):
 			pygame.sprite.Sprite.__init__(self)
-			img = pygame.image.load('img/lava.png')
+			img = pygame.image.load('hindi/img/lava.png')
 			self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
 			self.rect = self.image.get_rect()
 			self.rect.x = x
@@ -375,7 +375,7 @@ def engplatform():
 	class Coin(pygame.sprite.Sprite):
 		def __init__(self, x, y):
 			pygame.sprite.Sprite.__init__(self)
-			img = pygame.image.load('img/car.png')
+			img = pygame.image.load('hindi/img/car.png')
 			self.image = pygame.transform.scale(img, (tile_size // 2, tile_size // 2))
 			self.rect = self.image.get_rect()
 			self.rect.center = (x, y)
@@ -384,7 +384,7 @@ def engplatform():
 	class Exit(pygame.sprite.Sprite):
 		def __init__(self, x, y):
 			pygame.sprite.Sprite.__init__(self)
-			img = pygame.image.load('img/exit.png')
+			img = pygame.image.load('hindi/img/exit.png')
 			self.image = pygame.transform.scale(img, (tile_size, int(tile_size * 1.5)))
 			self.rect = self.image.get_rect()
 			self.rect.x = x
@@ -405,8 +405,8 @@ def engplatform():
 	coin_group.add(score_coin)
 
 	#load in level data and create world
-	if path.exists(f'level{level}_data'):
-		pickle_in = open(f'level{level}_data', 'rb')
+	if path.exists(f'hindi/level{level}_data'):
+		pickle_in = open(f'hindi/level{level}_data', 'rb')
 		world_data = pickle.load(pickle_in)
 	world = World(world_data)
 
@@ -463,7 +463,7 @@ def engplatform():
 			if game_over == 1:
 				#reset game and go to next level
 				game_over = prompt(level)
-				pygame.mixer.music.load("img/music.wav")
+				pygame.mixer.music.load("hindi/img/music.wav")
 				pygame.mixer.music.play(-1)
 				if game_over == 1:
 					level += 1
@@ -487,9 +487,10 @@ def engplatform():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_ESCAPE:
+					run = False
 
 		pygame.display.update()
 
 	pygame.quit()
-
-engplatform()

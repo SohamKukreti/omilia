@@ -17,18 +17,18 @@ def prompt(level):
 
 	# set the font
 
-	textfont=pygame.font.Font("img/CompassPro.ttf",32)
+	textfont=pygame.font.Font("hindi/img/CompassPro.ttf",32)
 	text = '''Marty, Try to guess what the word!'''
-	images = ["img/hindiImg/q1h.png","img/hindiImg/q2h.png","img/hindiImg/q3h.png","img/hindiImg/q4h.png","img/hindiImg/q5h.png","img/hindiImg/q6h.png","img/hindiImg/q7h.png","img/hindiImg/q8h.png","img/hindiImg/q9h.png","img/hindiImg/q10h.png",]
+	images = ["hindi/img/hindiImg/q1h.png","hindi/img/hindiImg/q2h.png","hindi/img/hindiImg/q3h.png","hindi/img/hindiImg/q4h.png","hindi/img/hindiImg/q5h.png","hindi/img/hindiImg/q6h.png","hindi/img/hindiImg/q7h.png","hindi/img/hindiImg/q8h.png","hindi/img/hindiImg/q9h.png","hindi/img/hindiImg/q10h.png",]
 	ansKey = [1,4,4,2,3,2,1,4,1,3]
 	n = random.randint(0,9)
 	ques_img = pygame.image.load(images[n])
 	selectedAns = -1
 	print(ansKey[n])
-	optionSound = pygame.mixer.Sound("img/optionsound.mp3")
-	correctSound = pygame.mixer.Sound("img/rightans.mp3")
-	wrongSound = pygame.mixer.Sound("img/wrongans.wav")
-	pygame.mixer.music.load("img/questionbg.wav")
+	optionSound = pygame.mixer.Sound("hindi/img/optionsound.mp3")
+	correctSound = pygame.mixer.Sound("hindi/img/rightans.mp3")
+	wrongSound = pygame.mixer.Sound("hindi/img/wrongans.wav")
+	pygame.mixer.music.load("hindi/img/questionbg.wav")
 	pygame.mixer.music.play(-1)
 
 
@@ -40,7 +40,7 @@ def prompt(level):
 	button4 = pygame.Rect(610, 635, 290, 300)
 
 
-	profimg = pygame.image.load("img/profslide.png")
+	profimg = pygame.image.load("hindi/img/profslide.png")
 
 
 

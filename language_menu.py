@@ -1,9 +1,11 @@
 import pygame
 import sys
-
+from EnglishPlatformer import engplatform
+from HindiPlatformer import hindplatform
+pygame.init()
 def language_call():
     # Load the start page image
-                pygame.init()
+                
                 screen_width = 1000
                 screen_height = 1000
 
@@ -56,14 +58,15 @@ def language_call():
                                 hindiImgNew = pygame.transform.scale(hindiImg, (300,180))
                                 hindiImg = hindiImgNew
                                 if click == True:
+                                    hindplatform()
                                     print("running hindi")
                     if englishButton.collidepoint((mx,my)):
                                 englishImgNew = pygame.transform.scale(englishImg, (215, 90))
                                 englishImg = englishImgNew
                                 if click == True:
+                                    engplatform()
                                     print("running english")
                     hindiImg = hindiImgold
                     englishImg = englishImgold
                     pygame.display.update()
                     
-language_call()
