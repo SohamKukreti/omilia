@@ -5,6 +5,7 @@ from HindiPlatformer import hindplatform
 from BanglaPlatformer import banglaplatform
 from guide_English import guide_english_call
 from guide_Hindi import guide_hindi_call
+from guide_Bangla import guide_bangla_call
 
 pygame.init()
 def language_call():
@@ -80,6 +81,7 @@ def language_call():
                                 banglaImgNew = pygame.transform.scale(banglaImg, (215, 90))
                                 banglaImg = banglaImgNew
                                 if click == True:
+                                    guide_bangla_call()
                                     banglaplatform()
                                     print("running Bengali")
                     hindiImg = hindiImgold
