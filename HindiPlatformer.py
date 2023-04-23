@@ -462,9 +462,10 @@ def hindplatform():
 			#if player has completed the level
 			if game_over == 1:
 				#reset game and go to next level
-				game_over = prompt(level)
-				pygame.mixer.music.load("hindi/img/music.wav")
-				pygame.mixer.music.play(-1)
+				if level != 7:
+					game_over = prompt(level)
+					pygame.mixer.music.load("English/img/music.wav")
+					pygame.mixer.music.play(-1)
 				if game_over == 1:
 					level += 1
 					if level <= max_levels:
