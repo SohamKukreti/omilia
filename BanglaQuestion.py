@@ -19,9 +19,9 @@ def prompt(level):
 
 	textfont=pygame.font.Font("bangla/img/CompassPro.ttf",32)
 	text = '''Marty, Try to guess what the word!'''
-	images = ["bangla/img/banglaimg/q1b.png","bangla/img/banglaimg/q2b.png","bangla/img/banglaimg/q3b.png","bangla/img/banglaimg/q4b.png","bangla/img/banglaimg/q5b.png","bangla/img/banglaimg/q6b.png","bangla/img/banglaimg/q7b.png","bangla/img/banglaimg/q8b.png","bangla/img/banglaimg/q9b.png","bangla/img/banglaimg/q10b.png"]
-	ansKey = [1,4,4,2,3,2,1,4,1,3]
-	n = random.randint(0,9)
+	images = ["bangla/img/banglaimg/q1b.png","bangla/img/banglaimg/q2b.png","bangla/img/banglaimg/q3b.png","bangla/img/banglaimg/q4b.png","bangla/img/banglaimg/q5b.png","bangla/img/banglaimg/q6b.png","bangla/img/banglaimg/q7b.png","bangla/img/banglaimg/q8b.png","bangla/img/banglaimg/q9b.png","bangla/img/banglaimg/q10b.png","bangla/img/banglaimg/q11b.png","bangla/img/banglaimg/q12b.png","bangla/img/banglaimg/q13b.png","bangla/img/banglaimg/q14b.png","bangla/img/banglaimg/q15b.png","bangla/img/banglaimg/q16b.png","bangla/img/banglaimg/q17b.png","bangla/img/banglaimg/q18b.png","bangla/img/banglaimg/q19b.png","bangla/img/banglaimg/q20b.png"]
+	ansKey = [1,4,4,2,3,2,1,4,1,3,1,2,1,3,2,3,3,1,3,1]
+	n = random.randint(0,19)
 	ques_img = pygame.image.load(images[n])
 	selectedAns = -1
 	print(ansKey[n])
