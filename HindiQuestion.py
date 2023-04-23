@@ -19,9 +19,9 @@ def prompt(level):
 
 	textfont=pygame.font.Font("hindi/img/CompassPro.ttf",32)
 	text = '''Marty, Try to guess what the word!'''
-	images = ["hindi/img/hindiImg/q1h.png","hindi/img/hindiImg/q2h.png","hindi/img/hindiImg/q3h.png","hindi/img/hindiImg/q4h.png","hindi/img/hindiImg/q5h.png","hindi/img/hindiImg/q6h.png","hindi/img/hindiImg/q7h.png","hindi/img/hindiImg/q8h.png","hindi/img/hindiImg/q9h.png","hindi/img/hindiImg/q10h.png",]
-	ansKey = [1,4,4,2,3,2,1,4,1,3]
-	n = random.randint(0,9)
+	images = ["hindi/img/hindiImg/q1h.png","hindi/img/hindiImg/q2h.png","hindi/img/hindiImg/q3h.png","hindi/img/hindiImg/q4h.png","hindi/img/hindiImg/q5h.png","hindi/img/hindiImg/q6h.png","hindi/img/hindiImg/q7h.png","hindi/img/hindiImg/q8h.png","hindi/img/hindiImg/q9h.png","hindi/img/hindiImg/q10h.png","hindi/img/hindiImg/q11h.png","hindi/img/hindiImg/q12h.png","hindi/img/hindiImg/q13h.png","hindi/img/hindiImg/q14h.png","hindi/img/hindiImg/q15h.png","hindi/img/hindiImg/q16h.png","hindi/img/hindiImg/q17h.png","hindi/img/hindiImg/q18h.png","hindi/img/hindiImg/q19h.png","hindi/img/hindiImg/q20h.png"]
+	ansKey = [1,4,4,2,3,2,1,4,1,3,1,2,1,3,2,3,3,1,3,1]
+	n = random.randint(0,19)
 	ques_img = pygame.image.load(images[n])
 	selectedAns = -1
 	print(ansKey[n])
