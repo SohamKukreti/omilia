@@ -33,4 +33,5 @@ def guide_hindi_call():
                 if back_button_rect.collidepoint(event.pos):
                     back_flag = True  # Go back to the main menu
                     break
+
         pygame.display.update()

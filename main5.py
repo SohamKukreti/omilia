@@ -15,7 +15,8 @@ pygame.display.set_caption('Platformer')
 bg_img = pygame.image.load('menuAssets/oi.png')
 start_button_img = pygame.image.load('menuAssets/start1.png')
 help_button_img = pygame.image.load('menuAssets/help1.png')
-
+pygame.mixer.music.load("menuAssets/menubg.wav")
+pygame.mixer.music.play(-1)
 # Create Rect objects for the buttons
 start_button_rect = pygame.Rect(380, 430, start_button_img.get_width(), start_button_img.get_height())
 help_button_rect = pygame.Rect(380, 550, help_button_img.get_width(), help_button_img.get_height())
@@ -42,4 +43,4 @@ while True:
     # Update the screen
     pygame.display.update()
 
-pygame
+
