@@ -1,24 +1,30 @@
 import pygame
 import sys
-pygame.init()
 
-screen_width = 1000
-screen_height = 1000
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Language Selector')
 
 def language_call():
     # Load the start page image
-                start_page_img = pygame.image.load('language_page.png')
+                pygame.init()
+                screen_width = 1000
+                screen_height = 1000
+
+                screen = pygame.display.set_mode((screen_width, screen_height))
+                pygame.display.set_caption('Language Selector')
+                englishImg = pygame.image.load("menuAssets/English_Button.png")
+                hindiImg = pygame.image.load("menuAssets/Hindi_Button.png")
+                start_page_img = pygame.image.load('menuAssets/language_page.png')
                 screen.blit(start_page_img, (0, 0))
                 pygame.display.update()
+
                 # Wait for the user to go back to the main menu
                 back_flag = False
                 while not back_flag:
                     # Draw the back button
-                    back = pygame.image.load('back.png')
+                    back = pygame.image.load('menuAssets/back.png')
                     back_button_rect = pygame.Rect(20, 20, back.get_width(), back.get_height())
                     screen.blit(back, back_button_rect)
+                    screen.blit(englishImg,(340,200))
+                    screen.blit(hindiImg,(340,320))
                     # back_button_rect = pygame.Rect(20, 20, 100, 50)
                     # pygame.draw.rect(screen, (255, 255, 255), back_button_rect)
                     # back_button_font = pygame.font.Font(None, 30)
@@ -36,3 +42,4 @@ def language_call():
                                 break
                     pygame.display.update()
                     
+language_call()

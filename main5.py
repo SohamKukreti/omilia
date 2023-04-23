@@ -12,9 +12,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Platformer')
 
 # Load images
-bg_img = pygame.image.load('oi.png')
-start_button_img = pygame.image.load('start1.png')
-help_button_img = pygame.image.load('help1.png')
+bg_img = pygame.image.load('menuAssets/oi.png')
+start_button_img = pygame.image.load('menuAssets/start1.png')
+help_button_img = pygame.image.load('menuAssets/help1.png')
 
 # Create Rect objects for the buttons
 start_button_rect = pygame.Rect(380, 430, start_button_img.get_width(), start_button_img.get_height())
