@@ -13,7 +13,6 @@ pygame.display.set_caption('Platformer')
 bg_img = pygame.image.load('oi.png')
 start_button_img = pygame.image.load('start1.png')
 help_button_img = pygame.image.load('help1.png')
-
 # Create Rect objects for the buttons
 start_button_rect = pygame.Rect(380, 430, start_button_img.get_width(), start_button_img.get_height())
 help_button_rect = pygame.Rect(380, 550, help_button_img.get_width(), help_button_img.get_height())
