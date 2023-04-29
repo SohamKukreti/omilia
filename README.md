@@ -29,6 +29,7 @@ We are also striving to include various updates and improvements for faster and 
 We aim to improve our project by implementing the following features:
 1. Try to build an app interface to make this technology more accessible.
 2. Try to include less appreciated indian dialects.
+
 ##Contributors
 * Soham Kukreti
 * Yuvraj Rathi
