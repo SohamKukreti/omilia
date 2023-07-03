@@ -4,6 +4,8 @@ def banglaplatform():
 	import pickle
 	from os import path
 	from BanglaQuestion import prompt
+	from GameEnding import endscreen
+
 
 
 	pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -29,7 +31,7 @@ def banglaplatform():
 	tile_size = 50
 	game_over = 0
 	main_menu = False
-	level = 0
+	level = 7
 	max_levels = 7
 	score = 0
 
@@ -475,6 +477,7 @@ def banglaplatform():
 						game_over = 0
 					else:
 						draw_text('YOU WIN!', font, blue, (screen_width // 2) - 140, screen_height // 2)
+						endscreen()
 						if restart_button.draw():
 							level = 1
 							#reset level

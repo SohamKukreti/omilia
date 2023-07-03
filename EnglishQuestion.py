@@ -127,6 +127,7 @@ def prompt(level):
 					else:
 						wrongSound.play()
 						return -1
+			
 		# update the screen
 		pygame.display.update()
 

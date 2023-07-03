@@ -6,6 +6,9 @@ screen_width = 1000
 screen_height = 1000
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('How to Play')
+pygame.mixer.music.load("menuAssets/menubg.wav")
+pygame.mixer.music.play(-1)
+
 
 def help_call():
     # Load the help page image
