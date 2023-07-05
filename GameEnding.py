@@ -12,17 +12,19 @@ pygame.display.set_caption('Game Over')
 
 def endscreen():
     # Load the help page image
+                back_flag = False   
                 pygame.mixer.music.load("menuAssets/congrats.wav")
                 pygame.mixer.music.set_volume(0.8)
+                congrats = pygame.mixer.Sound("menuAssets/congratspeech.wav")
+                congrats.play()
                 pygame.mixer.music.play(-1)
                 help_page_img = pygame.image.load('menuAssets/congrats.png')
                 screen.blit(help_page_img, (0, 0))
                 pygame.display.update()
                 # Wait for the user to go back to the main menu
-                back_flag = False
                 while not back_flag:
                     # Draw the back button
-                    back_button_rect = pygame.Rect(500, 455, 300, 125)
+                    #back_button_rect = pygame.Rect(500, 455, 300, 125)
                     # back_button_rect = pygame.Rect(20, 20, 100, 50)
                     #pygame.draw.rect(screen, (255, 255, 255), back_button_rect)
                     # back_button_font = pygame.font.Font(None, 30)
@@ -33,10 +35,5 @@ def endscreen():
                         if event.type == pygame.QUIT:
                             pygame.quit()
                             sys.exit()
-                        elif event.type == pygame.MOUSEBUTTONDOWN:
-                            # Check if the mouse clicked on the back button
-                            if back_button_rect.collidepoint(event.pos):
-                                back_flag = True  # Go back to the main menu
-                                import main5
                                 
                     pygame.display.update()

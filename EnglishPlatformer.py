@@ -30,7 +30,7 @@ def engplatform():
 	tile_size = 50
 	game_over = 0
 	main_menu = False
-	level = 7
+	level = 0
 	max_levels = 7
 	score = 0
 

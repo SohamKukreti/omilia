@@ -18,7 +18,7 @@ def hindplatform():
 	screen_height = 1000
 
 	screen = pygame.display.set_mode((screen_width, screen_height),pygame.RESIZABLE)
-	pygame.display.set_caption('Platformer')
+	pygame.display.set_caption('Omilia')
 
 
 	#define font
@@ -30,7 +30,7 @@ def hindplatform():
 	tile_size = 50
 	game_over = 0
 	main_menu = False
-	level = 7
+	level = 0
 	max_levels = 7
 	score = 0
 
