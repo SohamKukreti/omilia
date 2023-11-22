@@ -8,7 +8,7 @@ Link to the youtube video demo : https://www.youtube.com/watch?v=9ukLw9uVfgc
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Usage](#Usage)
-* [Project Status](#Project Status)
+* [Project Status](#ProjectStatus)
 * [Contributors](#Contributors)
 ## General info
 This project is a part of the OSDC'23 Hackathon.
@@ -33,7 +33,7 @@ We aim to improve our project by implementing the following features:
 1. Try to build an app interface to make this technology more accessible.
 2. Try to include less appreciated indian dialects.
 
-##Contributors
+## Contributors
 * Soham Kukreti
 * Yuvraj Rathi
 * Satyam Rathi
