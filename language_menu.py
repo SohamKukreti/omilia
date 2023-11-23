@@ -6,15 +6,14 @@ from BanglaPlatformer import banglaplatform
 from guide_English import guide_english_call
 from guide_Hindi import guide_hindi_call
 from guide_Bangla import guide_bangla_call
+import consts as c
 
 pygame.init()
 def language_call():
     # Load the start page image
                 
-                screen_width = 1000
-                screen_height = 1000
 
-                screen = pygame.display.set_mode((screen_width, screen_height))
+                screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.RESIZABLE)
                 pygame.display.set_caption('Omilia')
 
 

@@ -1,12 +1,12 @@
 import pygame
 import sys
+import consts as c
 pygame.init()
 
 
 def guide_bangla_call():
-    screen_width = 1000
-    screen_height = 1000
-    screen = pygame.display.set_mode((screen_width, screen_height))
+
+    screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption('Omilia')
     help_page_img = pygame.image.load('menuAssets/Guide_Bangla.png')
     screen.blit(help_page_img, (0, 0))
