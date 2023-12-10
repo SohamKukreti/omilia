@@ -16,6 +16,13 @@ This project is a part of the OSDC'23 Hackathon.
 To promote learning languages (specially local indian languages) in a fun and interactive way.
 **How we plan to solve it:
 Through Omilia, children will learn basic words of a certain language (as per the mode of the game) while also enjoying the game due to a colorful interface.
+### Pictures:
+<img src="pic1.png" width="400" />
+<img src="pic2.png" width="400" />
+<img src="pic3.png" width="400" />
+<img src="pic4.png" width="400" />
+<img src="pic5.png" width="400" />
+
 ## Technologies
 Project is created with:
 * Python
@@ -25,12 +32,7 @@ Project is created with:
 $ pip install pygame
 * This project code can be executed using any python interpreter for example pycharm.
 * Make sure your display window is set to appropriate dimensions (display scale should be 100 %) for the game display window to fit the screen.
-<img src="pic1.png" width="400" />
-<img src="pic2.png" width="400" />
-<img src="pic3.png" width="400" />
-<img src="pic4.png" width="400" />
-<img src="pic5.png" width="400" />
-<img src="pic6.png" width="400"/>
+
 
 ## Project Status
 The project is still under development as there are various indian languages yet to be included.
