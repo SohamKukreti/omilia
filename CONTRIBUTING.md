@@ -82,4 +82,4 @@ To copy a repository link, follow these steps:
 
 1. **Navigate to Repository:** Access the repository you want to copy the link for on GitHub or another hosting platform.
 
-2. **Locate Clone URL:** In the "Clone or download" section
+2. **Locate Clone URL:** In the "Clone or download" section.
