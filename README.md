@@ -30,7 +30,7 @@ $ pip install pygame
 <img src="pic3.png" width="400" />
 <img src="pic4.png" width="400" />
 <img src="pic5.png" width="400" />
-<img src="pic6.png" width="400" />
+<img src="pic6.png" width="400"/>
 
 ## Project Status
 The project is still under development as there are various indian languages yet to be included.
