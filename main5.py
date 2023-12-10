@@ -2,13 +2,12 @@ import pygame
 import sys
 from language_menu import language_call
 from help_menu import help_call
+import consts as c
 
 pygame.init()
 
-# Set up the screen
-screen_width = 1000
-screen_height = 1000
-screen = pygame.display.set_mode((screen_width, screen_height))
+
+screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('Omilia')
 
 # Load images

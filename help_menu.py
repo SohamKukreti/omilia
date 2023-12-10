@@ -1,10 +1,9 @@
 import pygame
 import sys
+import consts as c
 pygame.init()
 
-screen_width = 1000
-screen_height = 1000
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('How to Play')
 pygame.mixer.music.load("menuAssets/menubg.wav")
 pygame.mixer.music.play(-1)

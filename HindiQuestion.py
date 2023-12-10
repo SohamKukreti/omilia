@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import consts as c
 def prompt(level):
 
 	# initialize Pygame
@@ -10,10 +11,10 @@ def prompt(level):
 	else:
 		gamestate = "play"
 	# set the window size
-	window_size = (1000, 1000)
+	
 
 	# create the window
-	window = pygame.display.set_mode(window_size)
+	window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.RESIZABLE)
 
 	# set the font
 

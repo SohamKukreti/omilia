@@ -5,7 +5,7 @@ def banglaplatform():
 	from os import path
 	from BanglaQuestion import prompt
 	from GameEnding import endscreen
-
+	import consts as c
 
 
 	pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -15,10 +15,9 @@ def banglaplatform():
 	clock = pygame.time.Clock()
 	fps = 60
 	time_count = 0
-	screen_width = 1000
-	screen_height = 1000
 
-	screen = pygame.display.set_mode((screen_width, screen_height),pygame.RESIZABLE)
+
+	screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT),pygame.RESIZABLE)
 	pygame.display.set_caption('Omilia')
 
 
@@ -67,7 +66,7 @@ def banglaplatform():
 
 	#function to reset level
 	def reset_level(level):
-		player.reset(100, screen_height - 130)
+		player.reset(100, c.SCREEN_HEIGHT - 130)
 		blob_group.empty()
 		platform_group.empty()
 		coin_group.empty()
@@ -231,7 +230,7 @@ def banglaplatform():
 
 			elif game_over == -1:
 				self.image = self.dead_image
-				draw_text('GAME OVER!', font, blue, (screen_width // 2) - 200, screen_height // 2)
+				draw_text('GAME OVER!', font, blue, (c.SCREEN_WIDTH // 2) - 200, c.SCREEN_HEIGHT // 2)
 				if self.rect.y > 200:
 					self.rect.y -= 5
 
@@ -394,7 +393,7 @@ def banglaplatform():
 
 
 
-	player = Player(100, screen_height - 130)
+	player = Player(100, c.SCREEN_HEIGHT - 130)
 
 	blob_group = pygame.sprite.Group()
 	platform_group = pygame.sprite.Group()
@@ -414,9 +413,9 @@ def banglaplatform():
 
 
 	#create buttons
-	restart_button = Button(screen_width // 2 - 50, screen_height // 2 + 100, restart_img)
-	start_button = Button(screen_width // 2 - 350, screen_height // 2, start_img)
-	exit_button = Button(screen_width // 2 + 150, screen_height // 2, exit_img)
+	restart_button = Button(c.SCREEN_WIDTH // 2 - 50, c.SCREEN_HEIGHT // 2 + 100, restart_img)
+	start_button = Button(c.SCREEN_WIDTH // 2 - 350, c.SCREEN_HEIGHT // 2, start_img)
+	exit_button = Button(c.SCREEN_WIDTH // 2 + 150, c.SCREEN_HEIGHT // 2, exit_img)
 
 
 	run = True
@@ -476,7 +475,7 @@ def banglaplatform():
 						world = reset_level(level)
 						game_over = 0
 					else:
-						draw_text('YOU WIN!', font, blue, (screen_width // 2) - 140, screen_height // 2)
+						draw_text('YOU WIN!', font, blue, (c.SCREEN_WIDTH // 2) - 140, c.SCREEN_HEIGHT // 2)
 						endscreen()
 						if restart_button.draw():
 							level = 1
