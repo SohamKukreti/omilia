@@ -17,11 +17,12 @@ To promote learning languages (specially local indian languages) in a fun and in
 **How we plan to solve it:
 Through Omilia, children will learn basic words of a certain language (as per the mode of the game) while also enjoying the game due to a colorful interface.
 ### Pictures:
-<img src="pic1.png" width="400" />
 <img src="pic2.png" width="400" />
 <img src="pic3.png" width="400" />
 <img src="pic4.png" width="400" />
 <img src="pic5.png" width="400" />
+<img src="pic6.png" width="400" />
+
 
 ## Technologies
 Project is created with:
