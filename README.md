@@ -25,6 +25,7 @@ Project is created with:
 $ pip install pygame
 * This project code can be executed using any python interpreter for example pycharm.
 * Make sure your display window is set to appropriate dimensions (display scale should be 100%) for the game display window to fit the screen.
+<img src="pic1.png" width="400" />
 ## Project Status
 The project is still under development as there are various indian languages yet to be included.
 We are also striving to include various updates and improvements for faster and more effective learning.
