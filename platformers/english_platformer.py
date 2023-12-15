@@ -1,13 +1,7 @@
-from platformers.platformer import Platformer, World, Player, PlatformerConfig, LanguageFx, LanguageImages, Buttons, Button, Language
+from platformers.platformer import Platformer, World, Player, PlatformerConfig, LanguageFx, LanguageImages, Buttons, Button, Language, Coin
 from os import path
 import pickle
 import pygame
-
-
-class Coin(pygame.sprite.Sprite):
-    def __init__(self, coin_group, x, y):
-        super().__init__(coin_group)
-        self.image = pygame.image.load('English/img/coin.png')
 
 
 class EnglishPlatformer(Platformer):
@@ -19,7 +13,7 @@ class EnglishPlatformer(Platformer):
             world_data = pickle.load(pickle_in)
         else:
             raise Exception(f'Could not load level{init_level}_data from file')
-        self.world = World(world_data, Language.ENGLISH)
+        self.world = World(world_data, Language.ENGLISH, self.fx, self.images)
         pygame.mixer.music.load("English/img/music.wav")
         pygame.mixer.music.play(-1)
 
@@ -33,10 +27,10 @@ class EnglishPlatformer(Platformer):
             world_data = pickle.load(pickle_in)
         else:
             raise Exception(f'Could not load level{level}_data from file')
-        self.world = World(world_data, Language.ENGLISH)
+        self.world = World(world_data, Language.ENGLISH, self.fx, self.images)
 
         # create dummy coin for showing the score
-        score_coin = Coin(self.world.coin_group, PlatformerConfig.tile_size // 2, PlatformerConfig.tile_size // 2)
+        score_coin = Coin(PlatformerConfig.tile_size // 2, PlatformerConfig.tile_size // 2, self.images.coin_img)
         self.world.coin_group.add(score_coin)
         return self.world
 
@@ -55,7 +49,11 @@ class EnglishPlatformer(Platformer):
             pygame.image.load('English/img/restart_btn.png'),
             pygame.image.load('English/img/start_btn.png'),
             pygame.image.load('English/img/exit_btn.png'),
-            pygame.image.load("English/img/martyspeechimg.png")
+            pygame.image.load("English/img/martyspeechimg.png"),
+            pygame.image.load('English/img/car.png'),
+            pygame.image.load('English/img/lava.png'),
+            pygame.image.load('English/img/exit.png'),
+            pygame.image.load('English/img/platform.png')
         )
 
     def create_buttons(self) -> Buttons:

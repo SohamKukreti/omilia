@@ -82,7 +82,7 @@ class Button:
         pos = pygame.mouse.get_pos()
         # check mouseover and clicked conditions
         if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+            if pygame.mouse.get_pressed()[0] == 1 and not self.clicked:
                 action = True
                 self.clicked = True
         if pygame.mouse.get_pressed()[0] == 0:
@@ -111,10 +111,9 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, x, y, move_x, move_y):
+    def __init__(self, x, y, move_x, move_y, image):
         super().__init__()
-        img = pygame.image.load('English/img/platform.png')
-        self.image = pygame.transform.scale(img, (PlatformerConfig.tile_size, PlatformerConfig.tile_size // 2))
+        self.image = pygame.transform.scale(image, (PlatformerConfig.tile_size, PlatformerConfig.tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -133,29 +132,26 @@ class Platform(pygame.sprite.Sprite):
 
 
 class Exit(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        img = pygame.image.load('English/img/exit.png')
-        self.image = pygame.transform.scale(img, (PlatformerConfig.tile_size, int(PlatformerConfig.tile_size * 1.5)))
+    def __init__(self, x, y, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(image, (PlatformerConfig.tile_size, int(PlatformerConfig.tile_size * 1.5)))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
 
 class Coin(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        img = pygame.image.load('English/img/car.png')
-        self.image = pygame.transform.scale(img, (PlatformerConfig.tile_size // 2, PlatformerConfig.tile_size // 2))
+    def __init__(self, x, y, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(image, (PlatformerConfig.tile_size // 2, PlatformerConfig.tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
 
 class Lava(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        img = pygame.image.load('English/img/lava.png')
-        self.image = pygame.transform.scale(img, (PlatformerConfig.tile_size, PlatformerConfig.tile_size // 2))
+    def __init__(self, x, y, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(image, (PlatformerConfig.tile_size, PlatformerConfig.tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -176,10 +172,14 @@ class LanguageImages:
     start_img: pygame.Surface
     exit_img: pygame.Surface
     martyspeech_img: pygame.Surface
+    coin_img: pygame.Surface
+    lava_img: pygame.Surface
+    exit: pygame.Surface
+    platform: pygame.Surface
 
 
 class World:
-    def __init__(self, world_data, language: Language):
+    def __init__(self, world_data, language: Language, fx: LanguageFx, images: LanguageImages):
         # TODO: Add LanguageFx and LanguageImages
         self.coin_group = pygame.sprite.Group()
         self.lava_group = pygame.sprite.Group()
@@ -188,6 +188,8 @@ class World:
         self.platform_group = pygame.sprite.Group()
         self.tile_list = []
         self.world_data = world_data
+        self.images = images
+        self.fx = fx
         self.player = Player(100, PlatformerConfig.screen_height - 130, language)
         row_count = 0
         tile_size = PlatformerConfig.tile_size
@@ -215,19 +217,20 @@ class World:
                     blob = Enemy(col_count * tile_size, row_count * tile_size + 15, enemy_img)
                     self.blob_group.add(blob)
                 if tile == 4:
-                    platform = Platform(col_count * tile_size, row_count * tile_size, 1, 0)
+                    platform = Platform(col_count * tile_size, row_count * tile_size, 1, 0, self.images.platform)
                     self.platform_group.add(platform)
                 if tile == 5:
-                    platform = Platform(col_count * tile_size, row_count * tile_size, 0, 1)
+                    platform = Platform(col_count * tile_size, row_count * tile_size, 0, 1, self.images.platform)
                     self.platform_group.add(platform)
                 if tile == 6:
-                    lava = Lava(col_count * tile_size, row_count * tile_size + (tile_size // 2))
+                    lava = Lava(col_count * tile_size, row_count * tile_size + (tile_size // 2), self.images.lava_img)
                     self.lava_group.add(lava)
                 if tile == 7:
-                    coin = Coin(col_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2))
+                    coin = Coin(col_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2),
+                                self.images.coin_img)
                     self.coin_group.add(coin)
                 if tile == 8:
-                    exit_tile = Exit(col_count * tile_size, row_count * tile_size - (tile_size // 2))
+                    exit_tile = Exit(col_count * tile_size, row_count * tile_size - (tile_size // 2), self.images.exit)
                     self.exit_group.add(exit_tile)
                 col_count += 1
             row_count += 1
@@ -237,7 +240,7 @@ class World:
             screen.blit(tile[0], tile[1])
         self.platform_group.draw(screen)
         self.blob_group.draw(screen)
-        # self.coin_group.draw(screen)
+        self.coin_group.draw(screen)
         self.lava_group.draw(screen)
         self.exit_group.draw(screen)
 
@@ -299,8 +302,8 @@ class World:
         # update player coordinates
         player.rect.x += player.dx
         player.rect.y += player.dy
-        # if pygame.sprite.spritecollide(player, self.coin_group, True):
-        #     return CollisionType.COIN
+        if pygame.sprite.spritecollide(player, self.coin_group, True):
+            return CollisionType.COIN
         return CollisionType.NONFATAL
 
 
@@ -381,7 +384,7 @@ class Platformer:
             level_time += 1
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.game_state = LevelState.GAME_OVER
+                    self.level_state = LevelState.GAME_OVER
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
@@ -391,9 +394,11 @@ class Platformer:
                 case CollisionType.BLOB:
                     self.fx.game_over_fx.play()
                     self.level_state = LevelState.GAME_OVER
+                    self.score = 0
                 case CollisionType.LAVA:
                     self.fx.game_over_fx.play()
                     self.level_state = LevelState.GAME_OVER
+                    self.score = 0
                 case CollisionType.EXIT:
                     self.level_state = LevelState.EXIT
                     platformer_state = PlatformerState.QUESTION
@@ -505,4 +510,3 @@ class Player:
             self.vel_y = 10
         self.dy += self.vel_y
         self.in_air = True
-
