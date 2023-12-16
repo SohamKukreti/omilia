@@ -13,7 +13,6 @@ from GameEnding import endscreen
 
 class World:
     def __init__(self, world_data, language: Language, fx: LanguageFx, images: LanguageImages):
-        # TODO: Add LanguageFx and LanguageImages
         self.coin_group = pygame.sprite.Group()
         self.lava_group = pygame.sprite.Group()
         self.exit_group = pygame.sprite.Group()
