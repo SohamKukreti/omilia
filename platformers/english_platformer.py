@@ -17,8 +17,7 @@ class EnglishPlatformer(Platformer):
         else:
             raise Exception(f'Could not load level{init_level}_data from file')
         self.world = World(world_data, Language.ENGLISH, self.fx, self.images)
-        pygame.mixer.music.load("English/img/music.wav")
-        # pygame.mixer.music.play(-1)
+
 
     def reset_world(self, level):
         self.world.player.reset(100, PlatformerConfig.screen_height - 130)
@@ -43,6 +42,11 @@ class EnglishPlatformer(Platformer):
             pygame.mixer.Sound('English/img/coin.wav'),
             pygame.mixer.Sound('English/img/jump.wav'),
             pygame.mixer.Sound('English/img/game_over.wav'),
+            "English/img/music.wav",
+            pygame.mixer.Sound("English/img/optionsound.mp3"),
+            pygame.mixer.Sound("English/img/rightans.mp3"),
+            pygame.mixer.Sound("English/img/wrongans.wav"),
+            "English/img/questionbg.wav"
         )
 
     def load_images(self) -> LanguageImages:
@@ -56,7 +60,10 @@ class EnglishPlatformer(Platformer):
             pygame.image.load('English/img/car.png'),
             pygame.image.load('English/img/lava.png'),
             pygame.image.load('English/img/exit.png'),
-            pygame.image.load('English/img/platform.png')
+            pygame.image.load('English/img/platform.png'),
+            pygame.image.load(f'English/img/dirt.png'),
+            pygame.image.load(f'English/img/grass.png'),
+            pygame.image.load(f'English/img/blob.png')
         )
 
     def create_buttons(self) -> Buttons:

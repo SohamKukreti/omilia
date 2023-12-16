@@ -17,8 +17,7 @@ class HindiPlatformer(Platformer):
         else:
             raise Exception(f'Could not load level{init_level}_data from file')
         self.world = World(world_data, Language.HINDI, self.fx, self.images)
-        pygame.mixer.music.load("hindi/img/music.wav")
-        # pygame.mixer.music.play(-1)
+
 
     def reset_world(self, level):
         self.world.player.reset(100, PlatformerConfig.screen_height - 130)
@@ -43,6 +42,11 @@ class HindiPlatformer(Platformer):
             pygame.mixer.Sound('hindi/img/coin.wav'),
             pygame.mixer.Sound('hindi/img/jump.wav'),
             pygame.mixer.Sound('hindi/img/game_over.wav'),
+            "hindi/img/music.wav",
+            pygame.mixer.Sound("hindi/img/optionsound.mp3"),
+            pygame.mixer.Sound("hindi/img/rightans.mp3"),
+            pygame.mixer.Sound("hindi/img/wrongans.wav"),
+            "hindi/img/questionbg.wav"
         )
 
     def load_images(self) -> LanguageImages:
@@ -56,7 +60,10 @@ class HindiPlatformer(Platformer):
             pygame.image.load('hindi/img/car.png'),
             pygame.image.load('hindi/img/lava.png'),
             pygame.image.load('hindi/img/exit.png'),
-            pygame.image.load('hindi/img/platform.png')
+            pygame.image.load('hindi/img/platform.png'),
+            pygame.image.load(f'hindi/img/dirt.png'),
+            pygame.image.load(f'hindi/img/grass.png'),
+            pygame.image.load(f'hindi/img/blob.png')
         )
 
     def create_buttons(self) -> Buttons:

@@ -1,6 +1,6 @@
 import pygame
-from enums import Language
-from configs import PlatformerConfig
+from platformers.assets.enums import Language
+from platformers.assets.dconfigs import PlatformerConfig
 
 class Player:
     def __init__(self, x, y, langauge: Language):

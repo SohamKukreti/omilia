@@ -17,7 +17,6 @@ class BanglaPlatformer(Platformer):
         else:
             raise Exception(f'Could not load level{init_level}_data from file')
         self.world = World(world_data, Language.BANGLA, self.fx, self.images)
-        pygame.mixer.music.load("bangla/img/music.wav")
         # pygame.mixer.music.play(-1)
 
     def reset_world(self, level):
@@ -43,6 +42,11 @@ class BanglaPlatformer(Platformer):
             pygame.mixer.Sound('bangla/img/coin.wav'),
             pygame.mixer.Sound('bangla/img/jump.wav'),
             pygame.mixer.Sound('bangla/img/game_over.wav'),
+            "bangla/img/music.wav",
+            pygame.mixer.Sound("bangla/img/optionsound.mp3"),
+            pygame.mixer.Sound("bangla/img/rightans.mp3"),
+            pygame.mixer.Sound("bangla/img/wrongans.wav"),
+            "bangla/img/questionbg.wav"
         )
 
     def load_images(self) -> LanguageImages:
@@ -56,7 +60,10 @@ class BanglaPlatformer(Platformer):
             pygame.image.load('bangla/img/car.png'),
             pygame.image.load('bangla/img/lava.png'),
             pygame.image.load('bangla/img/exit.png'),
-            pygame.image.load('bangla/img/platform.png')
+            pygame.image.load('bangla/img/platform.png'),
+            pygame.image.load(f'bangla/img/dirt.png'),
+            pygame.image.load(f'bangla/img/grass.png'),
+            pygame.image.load(f'bangla/img/blob.png')
         )
 
     def create_buttons(self) -> Buttons:

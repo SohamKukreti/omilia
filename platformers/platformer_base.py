@@ -1,9 +1,9 @@
 import random
 from dataclasses import dataclass
-from assets.enums import *
-from assets.configs import *
-from assets.sprites import *
-from assets.data import *
+from platformers.assets.enums import *
+from platformers.assets.configs import *
+from platformers.assets.sprites import *
+from platformers.assets.data import *
 
 import pygame
 from pygame import mixer
@@ -24,30 +24,29 @@ class World:
         self.images = images
         self.fx = fx
         self.player = Player(100, PlatformerConfig.screen_height - 130, language)
+        pygame.mixer.music.load(self.fx.bg_music_path)
+        pygame.mixer.music.play(-1)
         row_count = 0
         tile_size = PlatformerConfig.tile_size
-        dirt_img = pygame.image.load(f'{language.value}/img/dirt.png')
-        grass_img = pygame.image.load(f'{language.value}/img/grass.png')
-        enemy_img = pygame.image.load(f'{language.value}/img/blob.png')
         for row in world_data:
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    img = pygame.transform.scale(dirt_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(self.images.dirt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
-                    img = pygame.transform.scale(grass_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(self.images.grass_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
-                    blob = Enemy(col_count * tile_size, row_count * tile_size + 15, enemy_img)
+                    blob = Enemy(col_count * tile_size, row_count * tile_size + 15, self.images.enemy_img)
                     self.blob_group.add(blob)
                 if tile == 4:
                     platform = Platform(col_count * tile_size, row_count * tile_size, 1, 0, self.images.platform)
@@ -275,6 +274,8 @@ class Platformer:
         return platformer_state
 
     def play_question(self, level, first=False) -> QuestionState:
+        pygame.mixer.music.load(self.fx.question_bg_music)
+        pygame.mixer.music.play(-1)
         if first:
             # TODO: Implement prof
             pass
@@ -300,6 +301,7 @@ class Platformer:
             def select_button():
                 for i, button in enumerate(buttons):
                     if button.collidepoint((mx, my)):
+                        self.fx.option_sound.play()
                         return i + 1
                 return None
 
@@ -312,8 +314,10 @@ class Platformer:
                     option_selected = select_button()
 
         if option_selected == self.answers[n]:
+            self.fx.correct_sound.play()
             return QuestionState.CORRECT
         else:
+            self.fx.wrong_sound.play()
             return QuestionState.INCORRECT
 
     def handle_keypress(self):

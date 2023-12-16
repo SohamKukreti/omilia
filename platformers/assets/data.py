@@ -9,6 +9,13 @@ class LanguageFx:
     coin_fx: pygame.mixer.Sound
     jump_fx: pygame.mixer.Sound
     game_over_fx: pygame.mixer.Sound
+    bg_music_path: str
+    option_sound: pygame.mixer.Sound
+    correct_sound: pygame.mixer.Sound
+    wrong_sound: pygame.mixer.Sound
+    question_bg_music: str
+
+
 
 
 @dataclass
@@ -30,3 +37,10 @@ class LanguageImages:
     lava_img: pygame.Surface
     exit: pygame.Surface
     platform: pygame.Surface
+    dirt_img: pygame.Surface
+    grass_img: pygame.Surface
+    enemy_img: pygame.Surface
+
+    """dirt_img = pygame.image.load(f'{language.value}/img/dirt.png')
+        grass_img = pygame.image.load(f'{language.value}/img/grass.png')
+        enemy_img = pygame.image.load(f'{language.value}/img/blob.png')"""
