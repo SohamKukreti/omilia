@@ -1,8 +1,5 @@
 import pygame
 import sys
-from EnglishPlatformer import engplatform
-from HindiPlatformer import hindplatform
-from BanglaPlatformer import banglaplatform
 from guide_English import guide_english_call
 from guide_Hindi import guide_hindi_call
 from guide_Bangla import guide_bangla_call
