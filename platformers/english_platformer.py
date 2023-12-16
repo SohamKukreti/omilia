@@ -64,26 +64,8 @@ class EnglishPlatformer(Platformer):
             pygame.image.load(f'English/img/dirt.png'),
             pygame.image.load(f'English/img/grass.png'),
             pygame.image.load(f'English/img/blob.png'),
-            pygame.image.load(f'English/img/ghost.png')
-        )
-
-    def create_buttons(self) -> Buttons:
-        return Buttons(
-            start_button=Button(
-                PlatformerConfig.screen_width // 2 - 350,
-                PlatformerConfig.screen_height // 2,
-                self.images.start_img
-            ),
-            restart_button=Button(
-                PlatformerConfig.screen_width // 2 - 50,
-                PlatformerConfig.screen_height // 2 + 100,
-                self.images.restart_img
-            ),
-            exit_button=Button(
-                PlatformerConfig.screen_width // 2 + 150,
-                PlatformerConfig.screen_height // 2,
-                self.images.exit_img
-            ),
+            pygame.image.load(f'English/img/ghost.png'),
+            pygame.image.load("English/img/profslide.png")
         )
 
     def load_language_config(self) -> LanguageConfig:

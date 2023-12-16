@@ -163,6 +163,7 @@ class Platformer:
         self.questions, self.answers = self.load_questions()
         self.score = 0
         self.language_config = self.load_language_config()
+        self.first_pass = True
 
     def draw_text(self, text, font, text_colour, x, y):
         img = font.render(text, True, text_colour)
@@ -181,14 +182,30 @@ class Platformer:
         pass
 
     def create_buttons(self) -> Buttons:
-        pass
+        return Buttons(
+            start_button=Button(
+                PlatformerConfig.screen_width // 2 - 350,
+                PlatformerConfig.screen_height // 2,
+                self.images.start_img
+            ),
+            restart_button=Button(
+                PlatformerConfig.screen_width // 2 - 50,
+                PlatformerConfig.screen_height // 2 + 100,
+                self.images.restart_img
+            ),
+            exit_button=Button(
+                PlatformerConfig.screen_width // 2 + 150,
+                PlatformerConfig.screen_height // 2,
+                self.images.exit_img
+            ),
+        )
 
     def load_questions(self) -> (list, list):
         pass
 
     def run(self):
         run_window = True
-        current_level = 5
+        current_level = 0
         while run_window:
             self.clock.tick(PlatformerConfig.fps)
 
@@ -208,7 +225,7 @@ class Platformer:
                 self.platformer_state = self.play_level(current_level)
 
             if self.platformer_state == PlatformerState.QUESTION:
-                question_state = self.play_question(current_level, first=True)
+                question_state = self.play_question(current_level, first=self.first_pass)
                 match question_state:
                     case QuestionState.CORRECT:
                         current_level += 1
@@ -218,7 +235,10 @@ class Platformer:
                             self.platformer_state = PlatformerState.PLAYING_LEVEL
                     case QuestionState.INCORRECT:
                         self.score = 0
+                        self.handle_death()
+                        self.world = self.reset_world(current_level)
                         self.platformer_state = PlatformerState.PLAYING_LEVEL
+
             if self.platformer_state == PlatformerState.WON:
                 self.draw_text(
                     'YOU WIN!',
@@ -237,12 +257,15 @@ class Platformer:
         level_time = 0
         self.level_state = LevelState.PLAYING
         platformer_state = PlatformerState.PLAYING_LEVEL
-        while self.level_state == LevelState.PLAYING or self.level_state == LevelState.GAME_OVER:
+        while self.level_state == LevelState.PLAYING:
             self.clock.tick(PlatformerConfig.fps)
+            level_time += 1
             pygame.display.update()
             self.world.draw(self.screen)
             self.draw_text('X ' + str(self.score), PlatformerConfig.font_score, Colours.WHITE.value,
                            PlatformerConfig.tile_size - 10, 10)
+            if self.first_pass and level_time < PlatformerConfig.martyimg_time:
+                self.screen.blit(self.images.martyspeech_img, (0, 0))
             self.world.blob_group.update()
             self.world.platform_group.update()
             level_time += 1
@@ -252,21 +275,20 @@ class Platformer:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
-            if self.level_state == LevelState.GAME_OVER:
-                if self.handle_death():
-                    self.level_state = LevelState.PLAYING
-                    self.world = self.reset_world(level)
-                continue
             self.handle_keypress()
             collision = self.world.handle_collisions()
             match collision:
                 case CollisionType.BLOB:
                     self.fx.game_over_fx.play()
-                    self.level_state = LevelState.GAME_OVER
+                    self.handle_death()
+                    self.level_state = LevelState.PLAYING
+                    self.world = self.reset_world(level)
                     self.score = 0
                 case CollisionType.LAVA:
                     self.fx.game_over_fx.play()
-                    self.level_state = LevelState.GAME_OVER
+                    self.handle_death()
+                    self.level_state = LevelState.PLAYING
+                    self.world = self.reset_world(level)
                     self.score = 0
                 case CollisionType.EXIT:
                     self.level_state = LevelState.EXIT
@@ -280,23 +302,47 @@ class Platformer:
         return platformer_state
 
     def handle_death(self):
-        self.draw_text(
-            'GAME OVER!',
-            PlatformerConfig.font,
-            Colours.BLUE.value,
-            (PlatformerConfig.screen_width // 2) - 200, PlatformerConfig.screen_height // 2
-        )
-        self.world.player.animate_ghost()
-        return self.buttons.restart_button.draw(self.screen)
+        restart_clicked = False
+        while not restart_clicked:
+            self.draw_text(
+                'GAME OVER!',
+                PlatformerConfig.font,
+                Colours.BLUE.value,
+                (PlatformerConfig.screen_width // 2) - 200, PlatformerConfig.screen_height // 2
+            )
+            self.world.player.animate_ghost()
+            self.clock.tick(PlatformerConfig.fps)
+            pygame.display.update()
+            self.world.draw(self.screen)
+            self.draw_text('X ' + str(self.score), PlatformerConfig.font_score, Colours.WHITE.value,
+                           PlatformerConfig.tile_size - 10, 10)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.level_state = LevelState.GAME_OVER
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+            restart_clicked = self.buttons.restart_button.draw(self.screen)
 
     def play_question(self, level, first=False) -> QuestionState:
         pygame.mixer.music.load(self.fx.question_bg_music)
         pygame.mixer.music.play(-1)
-        if first:
-            # TODO: Implement prof
-            pass
-
         self.screen.fill((255, 255, 255))
+        if first:
+            textfont = pygame.font.Font("bangla/img/CompassPro.ttf", 32)
+            text = '''Marty, Try to guess what the word!'''
+            self.first_pass = False
+            self.screen.blit(self.images.prof_slide, (0, 0))
+            proftext = textfont.render(text, True, (255, 255, 255))
+            self.screen.blit(proftext, (550, 600))
+            pygame.display.update()
+            prof_read = False
+            while not prof_read:
+                self.clock.tick(PlatformerConfig.fps)
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                        prof_read = True
+
         n = random.randint(0, len(self.questions) - 1)
         question_image = pygame.image.load(f'{self.questions[n]}')
         self.screen.blit(question_image, (0, 0))
