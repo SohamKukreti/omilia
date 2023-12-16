@@ -3,7 +3,7 @@ from os import path
 
 import pygame
 
-from platformers.platformer import Platformer, World, PlatformerConfig, LanguageFx, LanguageImages, Buttons, \
+from platformers.platformer_base import Platformer, World, PlatformerConfig, LanguageFx, LanguageImages, Buttons, \
     Button, Language, Coin, LanguageConfig
 
 
