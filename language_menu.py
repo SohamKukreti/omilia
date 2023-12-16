@@ -6,6 +6,9 @@ from BanglaPlatformer import banglaplatform
 from guide_English import guide_english_call
 from guide_Hindi import guide_hindi_call
 from guide_Bangla import guide_bangla_call
+from platformers.bangla_platformer import BanglaPlatformer
+from platformers.english_platformer import EnglishPlatformer
+from platformers.hindi_platformer import HindiPlatformer
 
 pygame.init()
 
@@ -68,21 +71,24 @@ def language_call():
             hindiImg = hindiImgNew
             if click == True:
                 guide_hindi_call()
-                hindplatform()
+                platformer = HindiPlatformer()
+                platformer.run()
                 print("running hindi")
         if englishButton.collidepoint((mx, my)):
             englishImgNew = pygame.transform.scale(englishImg, (215, 90))
             englishImg = englishImgNew
             if click == True:
                 guide_english_call()
-                engplatform()
+                platformer = EnglishPlatformer()
+                platformer.run()
                 print("running english")
         if banglaButton.collidepoint((mx, my)):
             banglaImgNew = pygame.transform.scale(banglaImg, (215, 90))
             banglaImg = banglaImgNew
             if click == True:
                 guide_bangla_call()
-                banglaplatform()
+                platformer = BanglaPlatformer()
+                platformer.run()
                 print("running Bengali")
         hindiImg = hindiImgold
         englishImg = englishImgold

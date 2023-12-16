@@ -1,8 +1,11 @@
+import random
 from dataclasses import dataclass
 from enum import Enum
 
 import pygame
 from pygame import mixer
+
+from GameEnding import endscreen
 
 
 @dataclass
@@ -11,12 +14,16 @@ class PlatformerConfig:
     screen_height: int = 1000
     fps: int = 60
     tile_size: int = 50
-    max_levels: int = 7
     white: tuple = (255, 255, 255)
     blue: tuple = (0, 0, 255)
     world_data: list = None
     font: pygame.font = pygame.font.SysFont('Bauhaus 93', 70)
     font_score: pygame.font = pygame.font.SysFont('Bauhaus 93', 30)
+
+
+@dataclass
+class LanguageConfig:
+    max_levels: int
 
 
 class Colours(Enum):
@@ -42,6 +49,13 @@ class PlatformerState(Enum):
     MAIN_MENU = 1
     PLAYING_LEVEL = 2
     QUESTION = 3
+    QUIT = 4
+    WON = 5
+
+
+class QuestionState(Enum):
+    CORRECT = 1
+    INCORRECT = 2
 
 
 class CollisionType(Enum):
@@ -325,11 +339,16 @@ class Platformer:
         self.images = self.load_images()
         self.buttons = self.create_buttons()
         self.platformer_state = PlatformerState.MAIN_MENU
+        self.questions, self.answers = self.load_questions()
         self.score = 0
+        self.language_config = self.load_language_config()
 
     def draw_text(self, text, font, text_colour, x, y):
         img = font.render(text, True, text_colour)
         self.screen.blit(img, (x, y))
+
+    def load_language_config(self) -> LanguageConfig:
+        pass
 
     def reset_world(self, level) -> World:
         pass
@@ -341,6 +360,9 @@ class Platformer:
         pass
 
     def create_buttons(self) -> Buttons:
+        pass
+
+    def load_questions(self) -> (list, list):
         pass
 
     def run(self):
@@ -358,13 +380,36 @@ class Platformer:
                 self.fx.martyspeech_fx.play()
                 self.platformer_state = PlatformerState.PLAYING_LEVEL
 
+            if self.platformer_state == PlatformerState.QUIT:
+                pygame.quit()
+
             if self.platformer_state == PlatformerState.PLAYING_LEVEL:
                 self.platformer_state = self.play_level(current_level)
 
             if self.platformer_state == PlatformerState.QUESTION:
-                self.platformer_state = self.play_question()
-                current_level += 1
-                # TODO: implement question
+                question_state = self.play_question(current_level, first=True)
+                match question_state:
+                    case QuestionState.CORRECT:
+                        current_level += 1
+                        if current_level > self.language_config.max_levels:
+                            self.platformer_state = PlatformerState.WON
+                        else:
+                            self.platformer_state = PlatformerState.PLAYING_LEVEL
+                    case QuestionState.INCORRECT:
+                        self.score = 0
+                        self.platformer_state = PlatformerState.PLAYING_LEVEL
+            if self.platformer_state == PlatformerState.WON:
+                self.draw_text(
+                    'YOU WIN!',
+                    PlatformerConfig.font,
+                    Colours.BLUE.value,
+                    (PlatformerConfig.screen_width // 2) - 140, PlatformerConfig.screen_height // 2
+                )
+                endscreen()
+                # if self.buttons.restart_button.draw(self.screen):
+                #     self.platformer_state = PlatformerState.PLAYING_LEVEL
+                #     current_level = 0
+                #     self.score = 0
 
     def play_level(self, level):
         self.world = self.reset_world(level)
@@ -410,11 +455,47 @@ class Platformer:
             pygame.display.update()
         return platformer_state
 
-    def play_question(self) -> PlatformerState:
-        return PlatformerState.PLAYING_LEVEL
-        pass
+    def play_question(self, level, first=False) -> QuestionState:
+        if first:
+            # TODO: Implement prof
+            pass
 
-    # TODO: implement question
+        self.screen.fill((255, 255, 255))
+        n = random.randint(0, len(self.questions) - 1)
+        question_image = pygame.image.load(f'{self.questions[n]}')
+        self.screen.blit(question_image, (0, 0))
+
+        # wait for click
+        option_selected = None
+        buttons = [
+            pygame.Rect(100, 255, 290, 300),
+            pygame.Rect(610, 255, 290, 300),
+            pygame.Rect(100, 625, 290, 300),
+            pygame.Rect(610, 635, 290, 300)
+        ]
+
+        while not option_selected:
+            pygame.display.update()
+            mx, my = pygame.mouse.get_pos()
+
+            def select_button():
+                for i, button in enumerate(buttons):
+                    if button.collidepoint((mx, my)):
+                        return i + 1
+                return None
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.platformer_state = PlatformerState.QUIT
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button != 1:
+                        continue
+                    option_selected = select_button()
+
+        if option_selected == self.answers[n]:
+            return QuestionState.CORRECT
+        else:
+            return QuestionState.INCORRECT
 
     def handle_keypress(self):
         self.world.player.reset_movement()
