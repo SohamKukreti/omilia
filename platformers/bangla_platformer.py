@@ -36,6 +36,7 @@ class BanglaPlatformer(Platformer):
         self.world.coin_group.add(score_coin)
         return self.world
 
+
     def load_fx(self) -> LanguageFx:
         return LanguageFx(
             pygame.mixer.Sound("bangla/img/martySpeech.wav"),
@@ -63,7 +64,8 @@ class BanglaPlatformer(Platformer):
             pygame.image.load('bangla/img/platform.png'),
             pygame.image.load(f'bangla/img/dirt.png'),
             pygame.image.load(f'bangla/img/grass.png'),
-            pygame.image.load(f'bangla/img/blob.png')
+            pygame.image.load(f'bangla/img/blob.png'),
+            pygame.image.load(f'bangla/img/ghost.png')
         )
 
     def create_buttons(self) -> Buttons:

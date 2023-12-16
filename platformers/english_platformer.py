@@ -63,7 +63,8 @@ class EnglishPlatformer(Platformer):
             pygame.image.load('English/img/platform.png'),
             pygame.image.load(f'English/img/dirt.png'),
             pygame.image.load(f'English/img/grass.png'),
-            pygame.image.load(f'English/img/blob.png')
+            pygame.image.load(f'English/img/blob.png'),
+            pygame.image.load(f'English/img/ghost.png')
         )
 
     def create_buttons(self) -> Buttons:

@@ -40,6 +40,7 @@ class LanguageImages:
     dirt_img: pygame.Surface
     grass_img: pygame.Surface
     enemy_img: pygame.Surface
+    dead_img: pygame.Surface
 
     """dirt_img = pygame.image.load(f'{language.value}/img/dirt.png')
         grass_img = pygame.image.load(f'{language.value}/img/grass.png')

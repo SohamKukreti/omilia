@@ -63,7 +63,8 @@ class HindiPlatformer(Platformer):
             pygame.image.load('hindi/img/platform.png'),
             pygame.image.load(f'hindi/img/dirt.png'),
             pygame.image.load(f'hindi/img/grass.png'),
-            pygame.image.load(f'hindi/img/blob.png')
+            pygame.image.load(f'hindi/img/blob.png'),
+            pygame.image.load(f'hindi/img/ghost.png')
         )
 
     def create_buttons(self) -> Buttons:

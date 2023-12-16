@@ -1,9 +1,10 @@
 import pygame
 from platformers.assets.enums import Language
-from platformers.assets.dconfigs import PlatformerConfig
+from platformers.assets.configs import PlatformerConfig
+
 
 class Player:
-    def __init__(self, x, y, langauge: Language):
+    def __init__(self, x, y, langauge: Language, language_images, language_fx):
         self.language = langauge
         self.images_right = []
         self.images_left = []
@@ -15,7 +16,6 @@ class Player:
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
-        self.dead_image = pygame.image.load(f'{self.language.value}/img/ghost.png')
         self.image = self.images_right[self.index]
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -30,9 +30,16 @@ class Player:
         self.walk_cooldown = 5
         self.col_thresh = 20
         self.dy = 0
+        self.images = language_images
+        self.fx = language_fx
+
+    def animate_ghost(self):
+        self.image = self.images.dead_img
+        if self.rect.y > 200:
+            self.rect.y -= 5
 
     def reset(self, x, y):
-        self.__init__(x, y, self.language)
+        self.__init__(x, y, self.language, self.images, self.fx)
 
     def reset_movement(self):
         self.dx = 0
@@ -80,6 +87,7 @@ class Player:
         self.dy += self.vel_y
         self.in_air = True
 
+
 class Button:
     def __init__(self, x, y, image):
         self.image = image
@@ -102,6 +110,7 @@ class Button:
         # draw button
         screen.blit(self.image, self.rect)
         return action
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y, image):

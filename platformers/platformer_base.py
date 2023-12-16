@@ -23,7 +23,7 @@ class World:
         self.world_data = world_data
         self.images = images
         self.fx = fx
-        self.player = Player(100, PlatformerConfig.screen_height - 130, language)
+        self.player = Player(100, PlatformerConfig.screen_height - 130, language, self.images, self.fx)
         pygame.mixer.music.load(self.fx.bg_music_path)
         pygame.mixer.music.play(-1)
         row_count = 0
@@ -68,8 +68,11 @@ class World:
             row_count += 1
 
     def draw(self, screen):
+        screen.blit(self.images.sun_img, (100, 100))
+        screen.blit(self.images.bg_img, (0, 0))
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
+        screen.blit(self.player.image, self.player.rect)
         self.platform_group.draw(screen)
         self.blob_group.draw(screen)
         self.coin_group.draw(screen)
@@ -185,7 +188,7 @@ class Platformer:
 
     def run(self):
         run_window = True
-        current_level = 0
+        current_level = 5
         while run_window:
             self.clock.tick(PlatformerConfig.fps)
 
@@ -234,12 +237,10 @@ class Platformer:
         level_time = 0
         self.level_state = LevelState.PLAYING
         platformer_state = PlatformerState.PLAYING_LEVEL
-        while self.level_state == LevelState.PLAYING:
-            self.screen.blit(self.images.bg_img, (0, 0))
-            self.screen.blit(self.images.sun_img, (100, 100))
+        while self.level_state == LevelState.PLAYING or self.level_state == LevelState.GAME_OVER:
             self.clock.tick(PlatformerConfig.fps)
+            pygame.display.update()
             self.world.draw(self.screen)
-            self.screen.blit(self.world.player.image, self.world.player.rect)
             self.draw_text('X ' + str(self.score), PlatformerConfig.font_score, Colours.WHITE.value,
                            PlatformerConfig.tile_size - 10, 10)
             self.world.blob_group.update()
@@ -251,6 +252,11 @@ class Platformer:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
+            if self.level_state == LevelState.GAME_OVER:
+                if self.handle_death():
+                    self.level_state = LevelState.PLAYING
+                    self.world = self.reset_world(level)
+                continue
             self.handle_keypress()
             collision = self.world.handle_collisions()
             match collision:
@@ -270,8 +276,18 @@ class Platformer:
                     self.score += 1
                 case CollisionType.NONFATAL:
                     pass
-            pygame.display.update()
+
         return platformer_state
+
+    def handle_death(self):
+        self.draw_text(
+            'GAME OVER!',
+            PlatformerConfig.font,
+            Colours.BLUE.value,
+            (PlatformerConfig.screen_width // 2) - 200, PlatformerConfig.screen_height // 2
+        )
+        self.world.player.animate_ghost()
+        return self.buttons.restart_button.draw(self.screen)
 
     def play_question(self, level, first=False) -> QuestionState:
         pygame.mixer.music.load(self.fx.question_bg_music)
@@ -335,6 +351,3 @@ class Platformer:
         if (keys[pygame.K_LEFT] is False or keys[pygame.K_a]) and (keys[pygame.K_RIGHT] is False or keys[pygame.K_d]):
             self.world.player.reset_counter()
         self.world.player.animate()
-
-
-
