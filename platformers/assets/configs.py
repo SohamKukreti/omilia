@@ -11,8 +11,8 @@ class PlatformerConfig:
     white: tuple = (255, 255, 255)
     blue: tuple = (0, 0, 255)
     world_data: list = None
-    font: pygame.font = pygame.font.SysFont('Bauhaus 93', 70)
-    font_score: pygame.font = pygame.font.SysFont('Bauhaus 93', 30)
+    font: pygame.font = pygame.font.SysFont("Bauhaus 93", 70)
+    font_score: pygame.font = pygame.font.SysFont("Bauhaus 93", 30)
     martyimg_time: int = 600
 
 

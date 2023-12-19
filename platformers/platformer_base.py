@@ -12,7 +12,9 @@ from GameEnding import endscreen
 
 
 class World:
-    def __init__(self, world_data, language: Language, fx: LanguageFx, images: LanguageImages):
+    def __init__(
+        self, world_data, language: Language, fx: LanguageFx, images: LanguageImages
+    ):
         self.coin_group = pygame.sprite.Group()
         self.lava_group = pygame.sprite.Group()
         self.exit_group = pygame.sprite.Group()
@@ -22,7 +24,9 @@ class World:
         self.world_data = world_data
         self.images = images
         self.fx = fx
-        self.player = Player(100, PlatformerConfig.screen_height - 130, language, self.images, self.fx)
+        self.player = Player(
+            100, PlatformerConfig.screen_height - 130, language, self.images, self.fx
+        )
         pygame.mixer.music.load(self.fx.bg_music_path)
         pygame.mixer.music.play(-1)
         row_count = 0
@@ -31,37 +35,68 @@ class World:
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    img = pygame.transform.scale(self.images.dirt_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(
+                        self.images.dirt_img, (tile_size, tile_size)
+                    )
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
-                    img = pygame.transform.scale(self.images.grass_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(
+                        self.images.grass_img, (tile_size, tile_size)
+                    )
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
-                    blob = Enemy(col_count * tile_size, row_count * tile_size + 15, self.images.enemy_img)
+                    blob = Enemy(
+                        col_count * tile_size,
+                        row_count * tile_size + 15,
+                        self.images.enemy_img,
+                    )
                     self.blob_group.add(blob)
                 if tile == 4:
-                    platform = Platform(col_count * tile_size, row_count * tile_size, 1, 0, self.images.platform)
+                    platform = Platform(
+                        col_count * tile_size,
+                        row_count * tile_size,
+                        1,
+                        0,
+                        self.images.platform,
+                    )
                     self.platform_group.add(platform)
                 if tile == 5:
-                    platform = Platform(col_count * tile_size, row_count * tile_size, 0, 1, self.images.platform)
+                    platform = Platform(
+                        col_count * tile_size,
+                        row_count * tile_size,
+                        0,
+                        1,
+                        self.images.platform,
+                    )
                     self.platform_group.add(platform)
                 if tile == 6:
-                    lava = Lava(col_count * tile_size, row_count * tile_size + (tile_size // 2), self.images.lava_img)
+                    lava = Lava(
+                        col_count * tile_size,
+                        row_count * tile_size + (tile_size // 2),
+                        self.images.lava_img,
+                    )
                     self.lava_group.add(lava)
                 if tile == 7:
-                    coin = Coin(col_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2),
-                                self.images.coin_img)
+                    coin = Coin(
+                        col_count * tile_size + (tile_size // 2),
+                        row_count * tile_size + (tile_size // 2),
+                        self.images.coin_img,
+                    )
                     self.coin_group.add(coin)
                 if tile == 8:
-                    exit_tile = Exit(col_count * tile_size, row_count * tile_size - (tile_size // 2), self.images.exit)
+                    exit_tile = Exit(
+                        col_count * tile_size,
+                        row_count * tile_size - (tile_size // 2),
+                        self.images.exit,
+                    )
                     self.exit_group.add(exit_tile)
                 col_count += 1
             row_count += 1
@@ -79,7 +114,6 @@ class World:
         self.exit_group.draw(screen)
 
     def handle_collisions(self) -> CollisionType:
-
         player = self.player
 
         # check for collision with enemies
@@ -97,12 +131,14 @@ class World:
         # check for collision with boundary
         for tile in self.tile_list:
             # check for collision in x direction
-            if tile[1].colliderect(player.rect.x + player.dx, player.rect.y, player.width,
-                                   player.height):
+            if tile[1].colliderect(
+                player.rect.x + player.dx, player.rect.y, player.width, player.height
+            ):
                 player.dx = 0
             # check for collision in y direction
-            if tile[1].colliderect(player.rect.x, player.rect.y + player.dy, player.width,
-                                   player.height):
+            if tile[1].colliderect(
+                player.rect.x, player.rect.y + player.dy, player.width, player.height
+            ):
                 # check if below the ground i.e. jumping
                 if player.vel_y < 0:
                     player.dy = tile[1].bottom - player.rect.top
@@ -116,16 +152,26 @@ class World:
         # check for collision with platforms
         for platform in self.platform_group:
             # collision in the x direction
-            if platform.rect.colliderect(player.rect.x + player.dx, player.rect.y, player.width, player.height):
+            if platform.rect.colliderect(
+                player.rect.x + player.dx, player.rect.y, player.width, player.height
+            ):
                 player.dx = 0
             # collision in the y direction
-            if platform.rect.colliderect(player.rect.x, player.rect.y + player.dy, player.width, player.height):
+            if platform.rect.colliderect(
+                player.rect.x, player.rect.y + player.dy, player.width, player.height
+            ):
                 # check if below platform
-                if abs((player.rect.top + player.dy) - platform.rect.bottom) < player.col_thresh:
+                if (
+                    abs((player.rect.top + player.dy) - platform.rect.bottom)
+                    < player.col_thresh
+                ):
                     player.vel_y = 0
                     player.dy = platform.rect.bottom - player.rect.top
                 # check if above platform
-                elif abs((player.rect.bottom + player.dy) - platform.rect.top) < player.col_thresh:
+                elif (
+                    abs((player.rect.bottom + player.dy) - platform.rect.top)
+                    < player.col_thresh
+                ):
                     player.rect.bottom = platform.rect.top - 1
                     player.in_air = False
                     player.dy = 0
@@ -142,17 +188,19 @@ class World:
 
 
 class Platformer:
-    """ Interface for different platformer languages. SHOULD NOT BE INSTANTIATED DIRECTLY"""
+    """Interface for different platformer languages. SHOULD NOT BE INSTANTIATED DIRECTLY"""
 
     def __init__(self):
         pygame.mixer.pre_init(44100, -16, 2, 512)
         mixer.init()
         pygame.init()
-        pygame.display.set_caption('Omilia')
+        pygame.display.set_caption("Omilia")
         # define game variables
         self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode((PlatformerConfig.screen_width, PlatformerConfig.screen_height),
-                                              pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode(
+            (PlatformerConfig.screen_width, PlatformerConfig.screen_height),
+            pygame.RESIZABLE,
+        )
         self.level_state: LevelState = LevelState.START
         self.world: World | None = None
         self.fx = self.load_fx()
@@ -185,17 +233,17 @@ class Platformer:
             start_button=Button(
                 PlatformerConfig.screen_width // 2 - 350,
                 PlatformerConfig.screen_height // 2,
-                self.images.start_img
+                self.images.start_img,
             ),
             restart_button=Button(
                 PlatformerConfig.screen_width // 2 - 50,
                 PlatformerConfig.screen_height // 2 + 100,
-                self.images.restart_img
+                self.images.restart_img,
             ),
             exit_button=Button(
                 PlatformerConfig.screen_width // 2 + 150,
                 PlatformerConfig.screen_height // 2,
-                self.images.exit_img
+                self.images.exit_img,
             ),
         )
 
@@ -224,7 +272,9 @@ class Platformer:
                 self.platformer_state = self.play_level(current_level)
 
             if self.platformer_state == PlatformerState.QUESTION:
-                question_state = self.play_question(current_level, first=self.first_pass)
+                question_state = self.play_question(
+                    current_level, first=self.first_pass
+                )
                 match question_state:
                     case QuestionState.CORRECT:
                         current_level += 1
@@ -240,10 +290,11 @@ class Platformer:
 
             if self.platformer_state == PlatformerState.WON:
                 self.draw_text(
-                    'YOU WIN!',
+                    "YOU WIN!",
                     PlatformerConfig.font,
                     Colours.BLUE.value,
-                    (PlatformerConfig.screen_width // 2) - 140, PlatformerConfig.screen_height // 2
+                    (PlatformerConfig.screen_width // 2) - 140,
+                    PlatformerConfig.screen_height // 2,
                 )
                 endscreen()
                 # if self.buttons.restart_button.draw(self.screen):
@@ -261,8 +312,13 @@ class Platformer:
             level_time += 1
             pygame.display.update()
             self.world.draw(self.screen)
-            self.draw_text('X ' + str(self.score), PlatformerConfig.font_score, Colours.WHITE.value,
-                           PlatformerConfig.tile_size - 10, 10)
+            self.draw_text(
+                "X " + str(self.score),
+                PlatformerConfig.font_score,
+                Colours.WHITE.value,
+                PlatformerConfig.tile_size - 10,
+                10,
+            )
             if self.first_pass and level_time < PlatformerConfig.martyimg_time:
                 self.screen.blit(self.images.martyspeech_img, (0, 0))
             self.world.blob_group.update()
@@ -304,17 +360,23 @@ class Platformer:
         restart_clicked = False
         while not restart_clicked:
             self.draw_text(
-                'GAME OVER!',
+                "GAME OVER!",
                 PlatformerConfig.font,
                 Colours.BLUE.value,
-                (PlatformerConfig.screen_width // 2) - 200, PlatformerConfig.screen_height // 2
+                (PlatformerConfig.screen_width // 2) - 200,
+                PlatformerConfig.screen_height // 2,
             )
             self.world.player.animate_ghost()
             self.clock.tick(PlatformerConfig.fps)
             pygame.display.update()
             self.world.draw(self.screen)
-            self.draw_text('X ' + str(self.score), PlatformerConfig.font_score, Colours.WHITE.value,
-                           PlatformerConfig.tile_size - 10, 10)
+            self.draw_text(
+                "X " + str(self.score),
+                PlatformerConfig.font_score,
+                Colours.WHITE.value,
+                PlatformerConfig.tile_size - 10,
+                10,
+            )
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.level_state = LevelState.GAME_OVER
@@ -329,7 +391,7 @@ class Platformer:
         self.screen.fill((255, 255, 255))
         if first:
             textfont = pygame.font.Font("bangla/img/CompassPro.ttf", 32)
-            text = '''Marty, Try to guess what the word!'''
+            text = """Marty, Try to guess what the word!"""
             self.first_pass = False
             self.screen.blit(self.images.prof_slide, (0, 0))
             proftext = textfont.render(text, True, (255, 255, 255))
@@ -343,7 +405,7 @@ class Platformer:
                         prof_read = True
 
         n = random.randint(0, len(self.questions) - 1)
-        question_image = pygame.image.load(f'{self.questions[n]}')
+        question_image = pygame.image.load(f"{self.questions[n]}")
         self.screen.blit(question_image, (0, 0))
 
         # wait for click
@@ -352,7 +414,7 @@ class Platformer:
             pygame.Rect(100, 255, 290, 300),
             pygame.Rect(610, 255, 290, 300),
             pygame.Rect(100, 625, 290, 300),
-            pygame.Rect(610, 635, 290, 300)
+            pygame.Rect(610, 635, 290, 300),
         ]
 
         while not option_selected:
@@ -393,6 +455,8 @@ class Platformer:
             self.world.player.left()
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.world.player.right()
-        if (keys[pygame.K_LEFT] is False or keys[pygame.K_a]) and (keys[pygame.K_RIGHT] is False or keys[pygame.K_d]):
+        if (keys[pygame.K_LEFT] is False or keys[pygame.K_a]) and (
+            keys[pygame.K_RIGHT] is False or keys[pygame.K_d]
+        ):
             self.world.player.reset_counter()
         self.world.player.animate()

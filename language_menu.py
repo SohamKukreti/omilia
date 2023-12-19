@@ -17,7 +17,7 @@ def language_call():
     screen_height = 1000
 
     screen = pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption('Omilia')
+    pygame.display.set_caption("Omilia")
 
     englishImg = pygame.image.load("menuAssets/English_Button.png")
     hindiImg = pygame.image.load("menuAssets/Hindi_Button.png")
@@ -29,7 +29,7 @@ def language_call():
     hindiButton = pygame.Rect(390, 350, 200, 75)
     banglaButton = pygame.Rect(370, 460, 230, 75)
 
-    start_page_img = pygame.image.load('menuAssets/language_page.png')
+    start_page_img = pygame.image.load("menuAssets/language_page.png")
     screen.blit(start_page_img, (0, 0))
     pygame.display.update()
 
@@ -38,7 +38,7 @@ def language_call():
     while not back_flag:
         # Draw the back button
         click = False
-        back = pygame.image.load('menuAssets/back.png')
+        back = pygame.image.load("menuAssets/back.png")
         mx, my = pygame.mouse.get_pos()
         back_button_rect = pygame.Rect(20, 20, back.get_width(), back.get_height())
         screen.blit(back, back_button_rect)

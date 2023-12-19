@@ -16,8 +16,6 @@ class LanguageFx:
     question_bg_music: str
 
 
-
-
 @dataclass
 class Buttons:
     start_button: Button
