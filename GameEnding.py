@@ -7,7 +7,7 @@ pygame.init()
 screen_width = 1000
 screen_height = 1000
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Game Over')
+pygame.display.set_caption("Game Over")
 
 
 def endscreen():
@@ -18,7 +18,7 @@ def endscreen():
     congrats = pygame.mixer.Sound("menuAssets/congratspeech.wav")
     congrats.play()
     pygame.mixer.music.play(-1)
-    help_page_img = pygame.image.load('menuAssets/congrats.png')
+    help_page_img = pygame.image.load("menuAssets/congrats.png")
     screen.blit(help_page_img, (0, 0))
     pygame.display.update()
     # Wait for the user to go back to the main menu
