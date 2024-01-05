@@ -1,4 +1,5 @@
 import random
+import sys
 from dataclasses import dataclass
 from platformers.assets.enums import *
 from platformers.assets.configs import *
@@ -268,6 +269,8 @@ class Platformer:
             if self.platformer_state == PlatformerState.QUIT:
                 pygame.quit()
 
+                
+
             if self.platformer_state == PlatformerState.PLAYING_LEVEL:
                 self.platformer_state = self.play_level(current_level)
 
@@ -326,7 +329,8 @@ class Platformer:
             level_time += 1
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.level_state = LevelState.GAME_OVER
+                    pygame.quit()
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
@@ -430,7 +434,8 @@ class Platformer:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.platformer_state = PlatformerState.QUIT
+                    pygame.quit()
+                    sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button != 1:
                         continue
