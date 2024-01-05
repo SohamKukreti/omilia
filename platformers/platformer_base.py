@@ -253,7 +253,7 @@ class Platformer:
 
     def run(self):
         run_window = True
-        current_level = 7
+        current_level = 0
         while run_window:
             self.clock.tick(PlatformerConfig.fps)
 
